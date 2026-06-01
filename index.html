@@ -12,8 +12,20 @@
     --honey:  #F5A623; --deep:   #1A3A2A; --forest: #2D6A4F;
     --leaf:   #52B788; --cream:  #FFFBF0; --text:   #1A3A2A;
   }
-  html, body { height: 100%; }
-  body { font-family: 'Nunito', sans-serif; background: var(--deep); color: var(--cream); min-height: 100vh; display: flex; flex-direction: column; }
+  html {
+    height: 100%;
+    background: var(--deep); /* matches footer so overscroll blends in */
+  }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--deep);
+    color: var(--cream);
+    min-height: 100vh;
+    min-height: 100dvh; /* iOS Safari dynamic viewport — accounts for browser chrome */
+    display: flex;
+    flex-direction: column;
+    overscroll-behavior: none; /* stops rubber-band bounce revealing blank space */
+  }
 
   /* ── HEADER ── */
   header { background: rgba(0,0,0,0.25); padding: 16px 40px; display: flex; align-items: center; justify-content: center; gap: 14px; border-bottom: 1px solid rgba(255,255,255,0.07); }
