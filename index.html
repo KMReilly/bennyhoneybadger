@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Benny – A Honey Badger Adventure</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --honey:  #F5A623; --deep:   #1A3A2A; --forest: #2D6A4F;
+    --leaf:   #52B788; --cream:  #FFFBF0; --text:   #1A3A2A;
+  }
+  html, body { height: 100%; }
+  body { font-family: 'Nunito', sans-serif; background: var(--deep); color: var(--cream); min-height: 100vh; display: flex; flex-direction: column; }
+
+  /* ── HEADER ── */
+  header { background: rgba(0,0,0,0.25); padding: 16px 40px; display: flex; align-items: center; justify-content: center; gap: 14px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .logo-comb { width: 34px; height: auto; flex-shrink: 0; }
+  .logo-text { color: #fff; font-size: 1.05rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
+  .logo-text span { color: var(--honey); }
+
+  /* ── MAIN ── */
+  main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(170deg, var(--deep) 0%, var(--forest) 52%, #3a8c65 78%, #4aab7a 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 56px 24px 64px;
+  }
+
+  /* ambient glow blobs */
+  main::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 75% 15%, rgba(245,166,35,0.15) 0%, transparent 55%),
+      radial-gradient(ellipse at 20% 85%, rgba(82,183,136,0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(45,106,79,0.3)   0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 640px;
+    width: 100%;
+  }
+
+  /* honeycomb */
+  .hero-comb {
+    width: 92px; height: auto;
+    margin: 0 auto 22px;
+    filter: drop-shadow(0 6px 22px rgba(245,166,35,0.5));
+  }
+
+  /* "Something wonderful" line */
+  .wonderful {
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+    font-style: italic;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+
+  /* subtext */
+  .wonderful-sub {
+    font-size: clamp(0.8rem, 1.8vw, 0.88rem);
+    font-weight: 600;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.03em;
+    margin-bottom: 22px;
+  }
+
+  /* badge */
+  .badge-coming {
+    display: inline-block;
+    background: var(--honey);
+    color: var(--deep);
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+
+  /* thin rule */
+  .rule {
+    width: 48px; height: 2px;
+    background: rgba(245,166,35,0.45);
+    border-radius: 2px;
+    margin: 0 auto 22px;
+  }
+
+  .intro-label {
+    font-size: clamp(0.8rem, 1.8vw, 0.92rem);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--honey);
+    margin-bottom: 6px;
+  }
+
+  h1 {
+    font-size: clamp(3.4rem, 10vw, 6rem);
+    font-weight: 900;
+    line-height: 1.0;
+    color: #fff;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+
+  .adventure-line {
+    font-size: clamp(1rem, 2.8vw, 1.35rem);
+    font-weight: 600;
+    font-style: italic;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 36px;
+  }
+
+  .hero-desc {
+    font-size: clamp(0.95rem, 2.2vw, 1.08rem);
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.75;
+    margin-bottom: 32px;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 100px;
+    padding: 10px 24px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: rgba(0,0,0,0.3);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    text-align: center;
+    padding: 22px 24px;
+    color: rgba(255,255,255,0.35);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+  footer a { color: var(--honey); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    header { padding: 14px 20px; }
+    main   { padding: 48px 20px 56px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <svg class="logo-comb" viewBox="0 0 115 136" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <clipPath id="ahc"><rect width="115" height="116"/></clipPath>
+      <radialGradient id="ag1" cx="40%" cy="25%" r="75%"><stop offset="0%" stop-color="#FFF5A0"/><stop offset="55%" stop-color="#FFD04A"/><stop offset="100%" stop-color="#E8940A"/></radialGradient>
+      <radialGradient id="ag2" cx="40%" cy="25%" r="75%"><stop offset="0%" stop-color="#FFD166"/><stop offset="55%" stop-color="#F5A623"/><stop offset="100%" stop-color="#C47D0A"/></radialGradient>
+      <radialGradient id="ag3" cx="40%" cy="25%" r="75%"><stop offset="0%" stop-color="#FFB833"/><stop offset="55%" stop-color="#E8940A"/><stop offset="100%" stop-color="#9A5500"/></radialGradient>
+      <radialGradient id="ag4" cx="40%" cy="25%" r="75%"><stop offset="0%" stop-color="#F5A623"/><stop offset="55%" stop-color="#D4820A"/><stop offset="100%" stop-color="#7A4200"/></radialGradient>
+      <radialGradient id="ag5" cx="40%" cy="25%" r="75%"><stop offset="0%" stop-color="#FFFAC0"/><stop offset="55%" stop-color="#FFE566"/><stop offset="100%" stop-color="#F5A623"/></radialGradient>
+    </defs>
+    <g clip-path="url(#ahc)">
+      <polygon points="84,-6 97,1.5 97,16.5 84,24 71,16.5 71,1.5"       fill="url(#ag5)" stroke="#8B4500" stroke-width="1.5"/>
+      <polygon points="45,16.5 58,24 58,39 45,46.5 32,39 32,24"         fill="url(#ag5)" stroke="#8B4500" stroke-width="1.5"/>
+      <polygon points="71,16.5 84,24 84,39 71,46.5 58,39 58,24"         fill="url(#ag5)" stroke="#8B4500" stroke-width="1.5"/>
+      <polygon points="97,16.5 110,24 110,39 97,46.5 84,39 84,24"       fill="url(#ag2)" stroke="#8B4500" stroke-width="1.5"/>
+      <polygon points="19,16.5 32,24 32,39 19,46.5 6,39 6,24"           fill="url(#ag2)" stroke="#8B4500" stroke-width="1.5"/>
+      <polygon points="32,39 45,46.5 45,61.5 32,69 19,61.5 19,46.5"    fill="url(#ag2)" stroke="#8B4500" stroke-width="1.5"/>
+      <polygon points="58,39 71,46.5 71,61.5 58,69 45,61.5 45,46.5"    fill="url(#ag1)" stroke="#8B4500" stroke-width="1.5"/>
+      <polygon points="84,39 97,46.5 97,61.5 84,69 71,61.5 71,46.5"    fill="url(#ag2)" stroke="#8B4500" stroke-width="1.5"/>
+      <polygon points="19,61.5 32,69 32,84 19,91.5 6,84 6,69"           fill="url(#ag3)" stroke="#8B4500" stroke-width="1.5"/>
+      <polygon points="45,61.5 58,69 58,84 45,91.5 32,84 32,69"        fill="url(#ag3)" stroke="#8B4500" stroke-width="1.5"/>
+      <polygon points="71,61.5 84,69 84,84 71,91.5 58,84 58,69"        fill="url(#ag3)" stroke="#8B4500" stroke-width="1.5"/>
+      <polygon points="32,84 45,91.5 45,106.5 32,114 19,106.5 19,91.5" fill="url(#ag4)" stroke="#8B4500" stroke-width="1.5"/>
+      <polygon points="58,84 71,91.5 71,106.5 58,114 45,106.5 45,91.5" fill="url(#ag4)" stroke="#8B4500" stroke-width="1.5"/>
+      <polygon points="84,84 97,91.5 97,106.5 84,114 71,106.5 71,91.5" fill="url(#ag4)" stroke="#8B4500" stroke-width="1.5"/>
+    </g>
+    <path d="M81,114 C76.5,122 76,128.5 84,132 C92,128.5 91.5,122 87,114Z" fill="#F5A623"/>
+    <ellipse cx="82" cy="121" rx="2.5" ry="2" fill="white" opacity="0.32"/>
+    <path d="M55,114 C51,121 51,127 58,130 C65,127 65,121 61,114Z" fill="#E8940A"/>
+    <ellipse cx="56" cy="121" rx="2" ry="1.5" fill="white" opacity="0.32"/>
+    <path d="M28.5,114 C24.5,121 24.5,127 32,130 C39.5,127 39.5,121 35.5,114Z" fill="#F5A623" opacity="0.9"/>
+    <ellipse cx="29.5" cy="121" rx="2" ry="1.5" fill="white" opacity="0.32"/>
+  </svg>
+  <div class="logo-text">Benny &nbsp;<span>A Honey Badger Adventure</span></div>
+</header>
+
+<!-- MAIN -->
+<main>
+  <div class="hero-inner">
+
+    <!-- Large honeycomb -->
+    <svg class="hero-comb" viewBox="0 0 115 136" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="bhc"><rect width="115" height="116"/></clipPath>
+        <radialGradient id="bg1" cx="40%" cy="25%" r="75%"><stop offset="0%" stop-color="#FFF5A0"/><stop offset="55%" stop-color="#FFD04A"/><stop offset="100%" stop-color="#E8940A"/></radialGradient>
+        <radialGradient id="bg2" cx="40%" cy="25%" r="75%"><stop offset="0%" stop-color="#FFD166"/><stop offset="55%" stop-color="#F5A623"/><stop offset="100%" stop-color="#C47D0A"/></radialGradient>
+        <radialGradient id="bg3" cx="40%" cy="25%" r="75%"><stop offset="0%" stop-color="#FFB833"/><stop offset="55%" stop-color="#E8940A"/><stop offset="100%" stop-color="#9A5500"/></radialGradient>
+        <radialGradient id="bg4" cx="40%" cy="25%" r="75%"><stop offset="0%" stop-color="#F5A623"/><stop offset="55%" stop-color="#D4820A"/><stop offset="100%" stop-color="#7A4200"/></radialGradient>
+        <radialGradient id="bg5" cx="40%" cy="25%" r="75%"><stop offset="0%" stop-color="#FFFAC0"/><stop offset="55%" stop-color="#FFE566"/><stop offset="100%" stop-color="#F5A623"/></radialGradient>
+      </defs>
+      <g clip-path="url(#bhc)">
+        <polygon points="84,-6 97,1.5 97,16.5 84,24 71,16.5 71,1.5"       fill="url(#bg5)" stroke="#7A3800" stroke-width="1.8"/>
+        <polygon points="45,16.5 58,24 58,39 45,46.5 32,39 32,24"         fill="url(#bg5)" stroke="#7A3800" stroke-width="1.8"/>
+        <polygon points="71,16.5 84,24 84,39 71,46.5 58,39 58,24"         fill="url(#bg5)" stroke="#7A3800" stroke-width="1.8"/>
+        <polygon points="97,16.5 110,24 110,39 97,46.5 84,39 84,24"       fill="url(#bg2)" stroke="#7A3800" stroke-width="1.8"/>
+        <polygon points="19,16.5 32,24 32,39 19,46.5 6,39 6,24"           fill="url(#bg2)" stroke="#7A3800" stroke-width="1.8"/>
+        <polygon points="32,39 45,46.5 45,61.5 32,69 19,61.5 19,46.5"    fill="url(#bg2)" stroke="#7A3800" stroke-width="1.8"/>
+        <polygon points="58,39 71,46.5 71,61.5 58,69 45,61.5 45,46.5"    fill="url(#bg1)" stroke="#7A3800" stroke-width="1.8"/>
+        <polygon points="84,39 97,46.5 97,61.5 84,69 71,61.5 71,46.5"    fill="url(#bg2)" stroke="#7A3800" stroke-width="1.8"/>
+        <polygon points="19,61.5 32,69 32,84 19,91.5 6,84 6,69"           fill="url(#bg3)" stroke="#7A3800" stroke-width="1.8"/>
+        <polygon points="45,61.5 58,69 58,84 45,91.5 32,84 32,69"        fill="url(#bg3)" stroke="#7A3800" stroke-width="1.8"/>
+        <polygon points="71,61.5 84,69 84,84 71,91.5 58,84 58,69"        fill="url(#bg3)" stroke="#7A3800" stroke-width="1.8"/>
+        <polygon points="32,84 45,91.5 45,106.5 32,114 19,106.5 19,91.5" fill="url(#bg4)" stroke="#7A3800" stroke-width="1.8"/>
+        <polygon points="58,84 71,91.5 71,106.5 58,114 45,106.5 45,91.5" fill="url(#bg4)" stroke="#7A3800" stroke-width="1.8"/>
+        <polygon points="84,84 97,91.5 97,106.5 84,114 71,106.5 71,91.5" fill="url(#bg4)" stroke="#7A3800" stroke-width="1.8"/>
+      </g>
+      <path d="M80.5,114 C75.5,123 75,130.5 84,134 C93,130.5 92.5,123 87.5,114Z" fill="#F5A623"/>
+      <ellipse cx="81.5" cy="123" rx="3.5" ry="2.5" fill="white" opacity="0.3"/>
+      <path d="M54,114 C49.5,122 49.5,129 58,132.5 C66.5,129 66.5,122 62,114Z" fill="#E8940A"/>
+      <ellipse cx="55" cy="122" rx="3" ry="2" fill="white" opacity="0.3"/>
+      <path d="M28,114 C23.5,122 23.5,128.5 32,132 C40.5,128.5 40.5,122 36,114Z" fill="#F5A623" opacity="0.92"/>
+      <ellipse cx="29" cy="122" rx="3" ry="2" fill="white" opacity="0.3"/>
+    </svg>
+
+    <p class="wonderful">Something wonderful is on its way 🌿</p>
+    <p class="wonderful-sub">We're packing Benny's rucksack and getting ready for the big launch</p>
+
+    <div class="badge-coming">✦ Coming Soon ✦</div>
+
+    <div class="rule"></div>
+
+    <p class="intro-label">Introducing</p>
+    <h1>Benny</h1>
+    <p class="adventure-line">A Honey Badger Adventure</p>
+
+    <p class="hero-desc">
+      Meet Benny — fearless, warm-hearted and endlessly curious. Armed with his trusty explorer's rucksack, a stash of honey snacks and a nose for the unknown, Benny roams the world's most incredible wild places, making extraordinary friends and discovering that every corner of our planet holds a new adventure.
+    </p>
+
+    <div class="hero-tag">🌍 &nbsp;Adventure stories for little explorers aged 5–7</div>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Benny Honey Badger Adventures. All rights reserved. &nbsp;·&nbsp; <a href="#">Contact Us</a></p>
+</footer>
+
+</body>
+</html>
